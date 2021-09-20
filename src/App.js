@@ -7,6 +7,8 @@ import Map from './components/Map/Map'
 
 const App = () => {
     const [places, setPlaces] = useState([])
+    const [filteredPlaces, setFilteredPlaces] = useState([]);
+
     const [childClicked, setChildClicked] = useState(null)
 
     const [coordinates, setCoordinates] = useState({})
@@ -15,6 +17,11 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [type, setType] = useState('restaurants');
     const [rating, setRating] = useState('')
+
+    useEffect(() => {
+        const filteredPlaces = places.filter((place) => Number(place.rating) > rating);
+        setFilteredPlaces(filteredPlaces);
+      }, [rating]);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(({ coords: {latitude, longitude} }) => {
@@ -26,6 +33,7 @@ const App = () => {
         setIsLoading(true)
         getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
             console.log(data)
+            setFilteredPlaces([]);
             setPlaces(data)
             setIsLoading(false)
         })
@@ -52,7 +60,7 @@ const App = () => {
                         setCoordinates={setCoordinates}
                         setBounds={setBounds}
                         coordinates={coordinates}
-                        places={places}
+                        places={filteredPlaces.length ? filteredPlaces : places}
                         setChildClicked={setChildClicked}
                     />
                </Grid>
