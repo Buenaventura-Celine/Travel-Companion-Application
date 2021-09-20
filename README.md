@@ -2,4 +2,3 @@
 
 Followed and modified by : Celine Joie V. Buenaventura <br />
 Link to the video tutorial: https://www.youtube.com/watch?v=UKdQjQX1Pko&t=5278s <br />
-credits to the mentor: https://github.com/adrianhajdin
